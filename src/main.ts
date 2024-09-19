@@ -13,6 +13,15 @@ async function bootstrap() {
   // นำ Middleware ที่จะใช้แบบ Global ประกาศตรงนี้ได้เลย
   app.use();
 
+  // ในการประกาศ Exception Filter แบบ Global เราจะต้องใช้ .useGlobalFilters() บน app
+  // แต่ประเด็นสำคัญอยู่ที่ ถ้าเราประกาศ Global ตรงนี้ Filter จะอยู่นอก injection context
+  // ทำให้เราไม่สามารถ inject อะไรเข้าไปตอนสร้าง filter instance ได้
+  // ถ้าเรามี inject ใน filter ก็จะเกิดข้อผิดพลาดได้
+  // ดังนั้นให้เราไปประกาศ custom providers เอาไว้ใน Root Module ด้วย (ทั่วไปก็ AppModule)
+  // หน้าตาของ custom providers คือ { provide: APP_FILTER, useClass: FilterName }
+  // จะทำให้เราสามารถ inject dependency เข้ามาใน Exception Filter ได้ก่อนที่จะนำไปใช้งาน
+  // app.useGlobalFilters(FILTER_CLASS_HERE)
+
   await app.listen(3000);
 }
 bootstrap();
