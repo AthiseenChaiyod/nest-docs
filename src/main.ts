@@ -10,6 +10,9 @@ async function bootstrap() {
   // เท่านี้ก็จะกรอง property ที่ไม่ได้ถูก class-validator ครอบไว้ออกทั้งหมดแล้ว
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
+  // นำ Middleware ที่จะใช้แบบ Global ประกาศตรงนี้ได้เลย
+  app.use();
+
   await app.listen(3000);
 }
 bootstrap();
