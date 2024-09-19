@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   // นำ Middleware ที่จะใช้แบบ Global ประกาศตรงนี้ได้เลย
-  app.use();
+  // app.use();
 
   await app.listen(3000);
 }
