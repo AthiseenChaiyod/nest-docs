@@ -52,6 +52,8 @@ export class GuardsChapterGuard implements CanActivate {
     // แปลว่าเราจะ extract เอาค่าของ @Department() ที่ method ของ ExecutionHandler
     // หรือก็คือ เราจะ extract ค่าของ @Department() จาก method ที่เราแปะ Guard เอาไว้
     // การสร้าง Custom Decorator พื้นฐานและการ extract ข้อมูล ดูได้ที่ guards-chapter.controller.ts
+    // การที่เราเรียกใช้ .getHandler() เราจะได้ค่ากลับมาเป็น function
+    // ถ้าเราอยากได้ชื่อ function ที่เป็น string เฉย ๆ ให้เราใส่ .name ตามหลังไปด้วย
     console.log(this.reflector.get(Roles, context.getHandler()));
 
     // ส่งค่า false กลับไปถ้าหากจะ deny request
