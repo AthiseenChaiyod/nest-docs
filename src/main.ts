@@ -1,6 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import { ContextIdFactory, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { DurableProvider } from './tutorials/2-fundamentals/4-injection-scopes/injection-scopes-chapter.durable-provider';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +22,10 @@ async function bootstrap() {
   // หน้าตาของ custom providers คือ { provide: APP_FILTER, useClass: FilterName }
   // จะทำให้เราสามารถ inject dependency เข้ามาใน Exception Filter ได้ก่อนที่จะนำไปใช้งาน
   // app.useGlobalFilters(FILTER_CLASS_HERE)
+
+  // บรรทัดนี้จะแสดงผลเป็น Global อยู่แล้ว จะเขียนไว้ที่ไหนก็ได้ แต่เขียนไว้ใน main.ts เป็นระเบียบสุด
+  // โค้ดนี้จะช่วยให้ durable ของเราทำงานได้ปกติ
+  ContextIdFactory.apply(new DurableProvider());
 
   await app.listen(3000);
 }
