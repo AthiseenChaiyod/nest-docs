@@ -27,6 +27,11 @@ async function bootstrap() {
   // โค้ดนี้จะช่วยให้ durable ของเราทำงานได้ปกติ
   ContextIdFactory.apply(new DurableProvider());
 
+  // เนื่องจาก shutdown hooks มีผลกับ performance ของ Application
+  // ทำให้ถ้าเราต้องการที่จะใช้ shutdown hooks จริง ๆ จะต้องมาประกาศเอาไว้ใน main.ts ด้วย
+  // โดยใช้ .enableShutdownHooks()
+  app.enableShutdownHooks();
+
   await app.listen(3000);
 }
 bootstrap();
